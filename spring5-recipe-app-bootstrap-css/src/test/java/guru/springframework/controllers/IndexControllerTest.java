@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -46,7 +47,7 @@ public class IndexControllerTest {
     @Test
     public void getIndexPage() throws Exception{
         //given
-        Set<Recipe> recipes = recipeService.getRecipes();
+        Set<Recipe> recipes = new HashSet<>();
         recipes.add(new Recipe());
         Recipe recipe = new Recipe();
         recipe.setId(1L);
@@ -62,7 +63,7 @@ public class IndexControllerTest {
         assertEquals("index", viewName);
         verify(recipeService, times(1)).getRecipes();
 //        verify(model, times(1)).addAttribute(eq("recipes"), anySet());
-        verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor);
+        verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
         Set<Recipe> setInController = argumentCaptor.getValue();
         assertEquals(2, setInController.size());
     }
