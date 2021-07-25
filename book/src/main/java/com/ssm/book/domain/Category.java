@@ -1,13 +1,15 @@
 package com.ssm.book.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Entity
+@Data
+@EqualsAndHashCode(exclude = {"book"})
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,11 +17,21 @@ public class Category {
 
     private String title;
     private String amount;
-    private Long typeid;
 
-    @OneToMany
-    private Set<Book> books = new HashSet<>();
+    @ManyToOne
+    private Book book;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
     private Type type;
+
+    public Category() {
+        super();
+    }
+
+    public Category(String title, String amount, Type type) {
+        super();
+        this.title = title;
+        this.amount = amount;
+        this.type = type;
+    }
 }
