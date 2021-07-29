@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 
 /**
@@ -21,15 +22,19 @@ public class BookBootstrap implements ApplicationListener<ContextRefreshedEvent>
     private PublisherRepository publisherRepository;
     private ShopRepository shopRepository;
     private TypeRepository typeRepository;
+    private CategoryRepository categoryRepository;
 
 
-    public BookBootstrap(BookRepository bookRepository, AuthorRepository authorRepository, PublisherRepository publisherRepository, ShopRepository shopRepository, TypeRepository typeRepository) {
+    public BookBootstrap(BookRepository bookRepository, AuthorRepository authorRepository,
+                         PublisherRepository publisherRepository, ShopRepository shopRepository,
+                         TypeRepository typeRepository,CategoryRepository categoryRepository) {
         super();
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.publisherRepository = publisherRepository;
         this.shopRepository = shopRepository;
         this.typeRepository = typeRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -45,43 +50,49 @@ public class BookBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         List<Book> books = new ArrayList<>();
 
-        Optional<Type> softcopyOptional = typeRepository.findByDescription("SoftCopy");
-        if(!softcopyOptional.isPresent()){
-            throw new RuntimeException("Expected Type Not Found");
+        Optional<Quantity> oneHundredOptional = typeRepository.findByAmount("100");
+        if(!oneHundredOptional.isPresent()){
+            throw new RuntimeException("Expected Quantity Not Found");
         }
 
-        Optional<Type> hardcopyOptional = typeRepository.findByDescription("HardCopy");
-        if(!softcopyOptional.isPresent()){
-            throw new RuntimeException("Expected Type Not Found");
+        Optional<Quantity> threeHundredOptional = typeRepository.findByAmount("300");
+        if(!threeHundredOptional.isPresent()){
+            throw new RuntimeException("Expected Quantity Not Found");
         }
 
-        Type softcopy = softcopyOptional.get();
-        Type hardCopy = hardcopyOptional.get();
-
-        Optional<Shop> yangonOptional = shopRepository.findByAddress("Yangon");
-        if(!yangonOptional.isPresent()){
-            throw new RuntimeException("Expected Type Not Found");
+        Optional<Quantity> fiveHundredOptional = typeRepository.findByAmount("500");
+        if(!fiveHundredOptional.isPresent()){
+            throw new RuntimeException("Expected Quantity Not Found");
         }
 
-        Optional<Shop> mandalayOptional = shopRepository.findByAddress("Mandalay");
-        if(!yangonOptional.isPresent()){
-            throw new RuntimeException("Expected Type Not Found");
+        Quantity amount100 = oneHundredOptional.get();
+        Quantity amount300 = threeHundredOptional.get();
+        Quantity amount500 = fiveHundredOptional.get();
+
+        Optional<Category> comendyOptional = categoryRepository.findByTitle("Comendy");
+        if(!comendyOptional.isPresent()){
+            throw new RuntimeException("Expected Category Not Found");
         }
 
-        Optional<Shop> nptOptional = shopRepository.findByAddress("NayPyiTaw");
-        if(!nptOptional.isPresent()){
-            throw new RuntimeException("Expected Type Not Found");
+        Optional<Category> classicOptional = categoryRepository.findByTitle("Classic");
+        if(!classicOptional.isPresent()){
+            throw new RuntimeException("Expected Category Not Found");
         }
 
-        Optional<Shop> mknOptional = shopRepository.findByAddress("MyitKyiNar");
-        if(!mknOptional.isPresent()){
-            throw new RuntimeException("Expected Type Not Found");
+        Optional<Category> fantasyOptional = categoryRepository.findByTitle("Fantasy");
+        if(!fantasyOptional.isPresent()){
+            throw new RuntimeException("Expected Category Not Found");
         }
 
-        Shop yangon = yangonOptional.get();
-        Shop mandalay = mandalayOptional.get();
-        Shop naypyitaw = nptOptional.get();
-        Shop myitkyinar = mknOptional.get();
+        Optional<Category> comicOptional = categoryRepository.findByTitle("Comic");
+        if(!comicOptional.isPresent()){
+            throw new RuntimeException("Expected Category Not Found");
+        }
+
+        Category comendy = comendyOptional.get();
+        Category classic = classicOptional.get();
+        Category fantasy = fantasyOptional.get();
+        Category comic = comicOptional.get();
 
         Book book1 = new Book();
         book1.setTitle("Dream Come True");
@@ -100,11 +111,12 @@ public class BookBootstrap implements ApplicationListener<ContextRefreshedEvent>
         book1publisher.setAddress("Yangon");
         book1.setPublisher(book1publisher);
 
-        book1.getShops().add(yangon);
-        book1.getShops().add(mandalay);
-        book1.getShops().add(naypyitaw);
+        book1.addShops(new Shop("PyoneCho","09-xxx-xxx-xxx","Yangon",amount100));
+        book1.addShops(new Shop("ZeeKwet","09-xxx-xxx-xxx","Yangon",amount300));
+        book1.addShops(new Shop("PyaeWa","09-xxx-xxx-xxx","Yangon",amount300));
+        book1.addShops(new Shop("Tokyo","09-xxx-xxx-xxx","Yangon",amount500));
 
-        book1.addCategory(new Category("Classics","100",softcopy));
+        book1.setCategory(comic);
 
         books.add(book1);
 
@@ -125,12 +137,11 @@ public class BookBootstrap implements ApplicationListener<ContextRefreshedEvent>
         book2publisher.setAddress("Tokyo");
         book2.setPublisher(book2publisher);
 
-        book2.getShops().add(yangon);
-        book2.getShops().add(mandalay);
-        book2.getShops().add(naypyitaw);
-        book2.getShops().add(myitkyinar);
+        book2.addShops(new Shop("PyoneCho","09-xxx-xxx-xxx","Yangon",amount100));
+        book2.addShops(new Shop("ZeeKwet","09-xxx-xxx-xxx","Yangon",amount100));
+        book2.addShops(new Shop("Tokyo","09-xxx-xxx-xxx","Yangon",amount100));
 
-        book2.addCategory(new Category("Comendy","100",hardCopy));
+        book2.setCategory(comendy);
 
         books.add(book2);
 

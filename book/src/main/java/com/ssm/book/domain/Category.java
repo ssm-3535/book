@@ -9,29 +9,11 @@ import java.util.Set;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = {"book"})
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
-    private String amount;
 
-    @ManyToOne
-    private Book book;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    private Type type;
-
-    public Category() {
-        super();
-    }
-
-    public Category(String title, String amount, Type type) {
-        super();
-        this.title = title;
-        this.amount = amount;
-        this.type = type;
-    }
 }

@@ -6,10 +6,10 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Type {
+public class Quantity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String description;
+    private String amount;
 
 }

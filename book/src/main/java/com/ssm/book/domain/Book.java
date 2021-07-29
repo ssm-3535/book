@@ -24,17 +24,15 @@ public class Book {
     @OneToOne(cascade = CascadeType.ALL)
     private Author author;
 
-    @ManyToMany
-    @JoinTable(name = "book_shop", joinColumns = @JoinColumn(name = "book_id"),
-    inverseJoinColumns = @JoinColumn(name = "shop_id"))
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "book")
     private Set<Shop> shops = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "book")
-    private Set<Category> categories = new HashSet<Category>();
-
-    public Book addCategory(Category category) {
-        category.setBook(this);
-        this.categories.add(category);
+    public Book addShops(Shop shop){
+        shop.setBook(this);
+        this.shops.add(shop);
         return this;
     }
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Category category;
 }

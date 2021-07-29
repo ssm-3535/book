@@ -1,11 +1,11 @@
 package com.ssm.book.repositories;
 
-import com.ssm.book.domain.Type;
+import com.ssm.book.domain.Quantity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface TypeRepository extends CrudRepository<Type, Long> {
+public interface TypeRepository extends CrudRepository<Quantity, Long> {
 
-    Optional<Type> findByDescription(String description);
+    Optional<Quantity> findByAmount(String amount);
 }
