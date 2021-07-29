@@ -21,8 +21,18 @@ public class Book {
     @OneToOne(cascade = CascadeType.ALL)
     private Publisher publisher;
 
+    public void setPublisher(Publisher publisher){
+        this.publisher = publisher;
+        publisher.setBook(this);
+    }
+
     @OneToOne(cascade = CascadeType.ALL)
     private Author author;
+
+    public void setAuthor(Author author){
+        this.author = author;
+        author.setBook(this);
+    }
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "book")
     private Set<Shop> shops = new HashSet<>();
