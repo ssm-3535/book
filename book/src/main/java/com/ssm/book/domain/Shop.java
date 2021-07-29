@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@EqualsAndHashCode(exclude = {"books"})
 @Data
+@EqualsAndHashCode(exclude = {"book"})
 public class Shop {
 
     @Id
@@ -19,6 +19,21 @@ public class Shop {
     private String phone;
     private String address;
 
-    @ManyToMany(mappedBy = "shops")
-    private Set<Book> books;
+    @ManyToOne
+    private Book book;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Quantity quantity;
+
+    public Shop() {
+        super();
+    }
+
+    public Shop(String name, String phone, String address,Quantity quantity) {
+        super();
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.quantity = quantity;
+    }
 }
