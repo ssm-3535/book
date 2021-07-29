@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface TypeRepository extends CrudRepository<Quantity, Long> {
+public interface QuantityRepository extends CrudRepository<Quantity, Long> {
 
     Optional<Quantity> findByAmount(String amount);
 }

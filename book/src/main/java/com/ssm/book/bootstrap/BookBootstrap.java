@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 /**
@@ -18,22 +17,16 @@ import java.util.*;
 public class BookBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private BookRepository bookRepository;
-    private AuthorRepository authorRepository;
-    private PublisherRepository publisherRepository;
-    private ShopRepository shopRepository;
-    private TypeRepository typeRepository;
+    private QuantityRepository quantityRepository;
     private CategoryRepository categoryRepository;
 
 
-    public BookBootstrap(BookRepository bookRepository, AuthorRepository authorRepository,
-                         PublisherRepository publisherRepository, ShopRepository shopRepository,
-                         TypeRepository typeRepository,CategoryRepository categoryRepository) {
+    public BookBootstrap(BookRepository bookRepository,
+                         QuantityRepository quantityRepository,
+                         CategoryRepository categoryRepository) {
         super();
         this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
-        this.publisherRepository = publisherRepository;
-        this.shopRepository = shopRepository;
-        this.typeRepository = typeRepository;
+        this.quantityRepository = quantityRepository;
         this.categoryRepository = categoryRepository;
     }
 
@@ -50,17 +43,17 @@ public class BookBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         List<Book> books = new ArrayList<>();
 
-        Optional<Quantity> oneHundredOptional = typeRepository.findByAmount("100");
+        Optional<Quantity> oneHundredOptional = quantityRepository.findByAmount("100");
         if(!oneHundredOptional.isPresent()){
             throw new RuntimeException("Expected Quantity Not Found");
         }
 
-        Optional<Quantity> threeHundredOptional = typeRepository.findByAmount("300");
+        Optional<Quantity> threeHundredOptional = quantityRepository.findByAmount("300");
         if(!threeHundredOptional.isPresent()){
             throw new RuntimeException("Expected Quantity Not Found");
         }
 
-        Optional<Quantity> fiveHundredOptional = typeRepository.findByAmount("500");
+        Optional<Quantity> fiveHundredOptional = quantityRepository.findByAmount("500");
         if(!fiveHundredOptional.isPresent()){
             throw new RuntimeException("Expected Quantity Not Found");
         }
