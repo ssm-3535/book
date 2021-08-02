@@ -18,6 +18,9 @@ public class Book {
     private String year;
     private String price;
 
+    @Lob
+    private Byte[] image;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Publisher publisher;
 
@@ -45,4 +48,5 @@ public class Book {
 
     @OneToOne(fetch = FetchType.EAGER)
     private Category category;
+
 }
