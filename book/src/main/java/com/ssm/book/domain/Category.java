@@ -1,11 +1,11 @@
 package com.ssm.book.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Data
@@ -15,5 +15,9 @@ public class Category {
     private Long id;
 
     private String title;
+
+    public Category(){
+        super();
+    }
 
 }

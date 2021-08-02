@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Book Form</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form  th:object="${book}" th:action="@{/book/save}" method="post">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="pannel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Edit Book Information</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label>Book Title:</label>
+                                    <input type="text" class="form-control" th:field="*{title}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Year :</label>
+                                    <input type="text" class="form-control" th:field="*{year}"/>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Price :</label>
+                                    <input type="text" class="form-control" th:field="*{price}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label>Publisher:</label>
+                                    <select class="form-control" name="publisher.id">
+                                        <option th:each="publisher : ${publisherList}"
+                                                th:value="${publisher.id}"
+                                                th:selected="${publisher.id.equals(book.publisher.id)}"
+                                                th:text="${publisher.name}">Each</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label>Author :</label>
+                                    <select class="form-control" name="author.id">
+                                        <option th:each="author : ${authorList}"
+                                                th:value="${author.id}"
+                                                th:selected="${author.id.equals(book.author.id)}"
+                                                th:text="${author.name}">SSM</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label>Category:</label>
+                                    <select class="form-control" name="category.id">
+                                        <option th:each="category : ${categoryList}"
+                                                th:value="${category.id}"
+                                                th:selected="${category.id.equals(book.category.id)}"
+                                                th:text="${category.title}">Each</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-10 ">
+                                    <h1 class="panel-title">Shop</h1>
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-default" href="#" th:href="@{'/book/' + ${book.id} + '/shop'}" role="button">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-hover ">
+                                        <thead class="thead-inverse">
+                                        <tr>
+                                            <td>ID</td>
+                                            <td>Name</td>
+                                            <td>Phone</td>
+                                            <td>Address</td>
+                                            <td>Quantity</td>
+                                        </tr>
+                                        </thead>
+                                        <tr th:each="shop : ${book.shops}">
+                                            <td th:text="${shop.getId()}">1</td>
+                                            <td th:text="${shop.getName()}">Calm down</td>
+                                            <td th:text="${shop.getPhone()}">09-8765xxxxx</td>
+                                            <td th:text="${shop.getAddress()}">Yangon</td>
+                                            <td th:text="${shop.getQuantity().getAmount()}">11</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
