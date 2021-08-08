@@ -21,6 +21,9 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form  th:object="${book}" th:action="@{/book/save}" method="post">
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <p>Please Correct Errors Below</p>
+                </div>
                 <input type="hidden" th:field="*{id}"/>
                 <div class="pannel-group">
                     <div class="panel panel-primary">
@@ -29,15 +32,27 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-12 form-group" th:class="${#fields.hasErrors('title')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
                                     <label>Book Title:</label>
-                                    <input type="text" class="form-control" th:field="*{title}"/>
+                                    <input type="text" class="form-control" th:field="*{title}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('title')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('title')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-6 form-group" th:class="${#fields.hasErrors('year')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
                                     <label>Year :</label>
-                                    <input type="text" class="form-control" th:field="*{year}"/>
+                                    <input type="text" class="form-control" th:field="*{year}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('year')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('year')}" th:text="${err}"></li>
+                                        </ul>
+                                    </span>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>Price :</label>

@@ -6,6 +6,7 @@ import com.ssm.book.domain.Author;
 import com.ssm.book.domain.Book;
 import com.ssm.book.domain.Publisher;
 import com.ssm.book.domain.Shop;
+import com.ssm.book.exception.NotFoundException;
 import com.ssm.book.repositories.*;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +57,7 @@ public class BookServiceImpl implements BookService{
     public Book getBookById(String id) {
         Optional<Book> bookOptional = bookRepository.findById(Long.valueOf(id));
         if(!bookOptional.isPresent()){
-            throw new RuntimeException();
+            throw new NotFoundException("Book Not Found!!");
         }
         return bookOptional.get();
     }
