@@ -4,6 +4,7 @@ import com.ssm.book.domain.*;
 import com.ssm.book.repositories.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.*;
  */
 @Slf4j
 @Component
+@Profile("default")
 public class BookBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private BookRepository bookRepository;
