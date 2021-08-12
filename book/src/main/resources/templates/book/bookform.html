@@ -28,13 +28,13 @@
                 <div class="pannel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Edit Book Information</h1>
+                            <h1 class="panel-title" th="#{book.edit}">Edit Book Information</h1>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12 form-group" th:class="${#fields.hasErrors('title')}
                                 ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Book Title:</label>
+                                    <label th:text="#{book.title}">Book Title:</label>
                                     <input type="text" class="form-control" th:field="*{title}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('title')}">
                                         <ul>
@@ -46,7 +46,7 @@
                             <div class="row">
                                 <div class="col-md-6 form-group" th:class="${#fields.hasErrors('year')}
                                 ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Year :</label>
+                                    <label th:text="#{book.year}">Year :</label>
                                     <input type="text" class="form-control" th:field="*{year}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('year')}">
                                         <ul>
@@ -55,13 +55,13 @@
                                     </span>
                                 </div>
                                 <div class="col-md-6 form-group">
-                                    <label>Price :</label>
+                                    <label th:text="#{book.price}">Price :</label>
                                     <input type="text" class="form-control" th:field="*{price}"/>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 form-group">
-                                    <label>Publisher:</label>
+                                    <label th:text="#{book.publisher}">Publisher:</label>
                                     <select class="form-control" name="publisher.id">
                                         <option th:each="publisher : ${publisherList}"
                                                 th:value="${publisher.id}"
@@ -70,7 +70,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <label>Author :</label>
+                                    <label th:text="#{book.author}">Author :</label>
                                     <select class="form-control" name="author.id">
                                         <option th:each="author : ${authorList}"
                                                 th:value="${author.id}"
@@ -79,7 +79,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <label>Category:</label>
+                                    <label th:text="#{book.category}">Category:</label>
                                     <select class="form-control" name="category.id">
                                         <option th:each="category : ${categoryList}"
                                                 th:value="${category.id}"
@@ -94,10 +94,10 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-10 ">
-                                    <h1 class="panel-title">Shop</h1>
+                                    <h1 class="panel-title" th:text="#{book.shop}">Shop</h1>
                                 </div>
                                 <div class="col-md-2">
-                                    <a class="btn btn-default" href="#" th:href="@{'/book/' + ${book.id} + '/shop'}" role="button">View</a>
+                                    <a class="btn btn-default" href="#" th:href="@{'/book/' + ${book.id} + '/shop'}" role="button" th:text="#{book.shop.view}">View</a>
                                 </div>
                             </div>
                         </div>
@@ -107,11 +107,11 @@
                                     <table class="table table-hover ">
                                         <thead class="thead-inverse">
                                         <tr>
-                                            <td>ID</td>
-                                            <td>Name</td>
-                                            <td>Phone</td>
-                                            <td>Address</td>
-                                            <td>Quantity</td>
+                                            <td th:text="#{book.shop.id}">ID</td>
+                                            <td th:text="#{book.shop.name}">Name</td>
+                                            <td th:text="#{book.shop.phone}">Phone</td>
+                                            <td th:text="#{book.shop.address}">Address</td>
+                                            <td th:text="#{book.shop.quantity}">Quantity</td>
                                         </tr>
                                         </thead>
                                         <tr th:each="shop : ${book.shops}">
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" th:text="#{submit.btn}">Submit</button>
                 </div>
             </form>
         </div>
