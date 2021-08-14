@@ -13,16 +13,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 @Service
 public class ShopServiceImpl implements ShopService {
-    private ShopRepository shopRepository;
     private ShopToShopCommand shopToShopCommand;
     private BookRepository bookRepository;
     private ShopCommandToShop shopCommandToShop;
     private QuantityRepository quantityRepository;
 
-    public ShopServiceImpl(ShopRepository shopRepository, ShopToShopCommand shopToShopCommand,
-                           BookRepository bookRepository, ShopCommandToShop shopCommandToShop,
-                           QuantityRepository quantityRepository) {
-        this.shopRepository = shopRepository;
+    public ShopServiceImpl(ShopToShopCommand shopToShopCommand,BookRepository bookRepository,
+                           ShopCommandToShop shopCommandToShop,QuantityRepository quantityRepository) {
         this.shopToShopCommand = shopToShopCommand;
         this.bookRepository = bookRepository;
         this.shopCommandToShop = shopCommandToShop;
