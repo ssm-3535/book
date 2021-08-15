@@ -1,6 +1,5 @@
 package com.ssm.book.service;
 
-import com.ssm.book.command.BookCommand;
 import com.ssm.book.command.QuantityCommand;
 import com.ssm.book.command.ShopCommand;
 import com.ssm.book.converter.QuantityCommandToQuantity;
@@ -8,10 +7,10 @@ import com.ssm.book.converter.QuantityToQuantityCommand;
 import com.ssm.book.converter.ShopCommandToShop;
 import com.ssm.book.converter.ShopToShopCommand;
 import com.ssm.book.domain.Book;
-import com.ssm.book.domain.Quantity;
 import com.ssm.book.domain.Shop;
 import com.ssm.book.repositories.BookRepository;
 import com.ssm.book.repositories.QuantityRepository;
+import com.ssm.book.repositories.ShopRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -21,7 +20,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 /**
@@ -40,6 +38,9 @@ class ShopServiceImplTest {
     @Mock
     QuantityRepository quantityRepository;
 
+    @Mock
+    ShopRepository shopRepository;
+
     public ShopServiceImplTest() {
         this.shopToShopCommand = new ShopToShopCommand(new QuantityToQuantityCommand());
         this.shopCommandToShop = new ShopCommandToShop(new QuantityCommandToQuantity());
@@ -49,7 +50,7 @@ class ShopServiceImplTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        shopService = new ShopServiceImpl(shopToShopCommand, bookRepository, shopCommandToShop, quantityRepository);
+        shopService = new ShopServiceImpl(shopToShopCommand, bookRepository, shopCommandToShop, quantityRepository, shopRepository);
     }
 
     @Test

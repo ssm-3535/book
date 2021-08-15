@@ -52,7 +52,7 @@ public class ShopController {
 
     @GetMapping("book/{book_id}/shop/delete/{id}")
     public String deleteShop(@PathVariable String book_id, @PathVariable String id){
-        bookService.deleteShop(book_id, id);
+        shopService.deleteShop(book_id, id);
         return "redirect:/book/" + book_id + "/shop";
     }
 

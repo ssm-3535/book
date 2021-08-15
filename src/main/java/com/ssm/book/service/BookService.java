@@ -19,13 +19,4 @@ public interface BookService {
 
     void deleteBookCommandById(String id);
 
-    void deleteShop(String book_id, String id);
-
-    BookCommand saveOrUpdateAuthor(String id, AuthorCommand authorCommand);
-
-    AuthorCommand getAuthorCommandByBookId(String id);
-
-    PublisherCommand findPublisherCommandById(String book_id);
-
-    BookCommand updatePublisher(String id, PublisherCommand publisherCommand);
 }

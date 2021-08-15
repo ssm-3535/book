@@ -7,4 +7,6 @@ public interface ShopService {
     ShopCommand findShopById(String book_id, String id);
 
     ShopCommand saveShopCommand(ShopCommand shopCommand);
+
+    void deleteShop(String book_id, String id);
 }

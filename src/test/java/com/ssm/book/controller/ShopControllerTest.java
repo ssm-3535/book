@@ -133,7 +133,7 @@ class ShopControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/book/1/shop"));
 
-        verify(bookService,times(1)).deleteShop(anyString(),anyString());
+        verify(shopService,times(1)).deleteShop(anyString(),anyString());
 
     }
 

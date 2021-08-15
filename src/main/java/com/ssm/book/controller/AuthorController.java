@@ -2,7 +2,7 @@ package com.ssm.book.controller;
 
 import com.ssm.book.command.AuthorCommand;
 import com.ssm.book.command.BookCommand;
-import com.ssm.book.domain.Book;
+import com.ssm.book.service.AuthorService;
 import com.ssm.book.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AuthorController {
-    private BookService bookService;
+    private final AuthorService authorService;
 
-    public AuthorController(BookService bookService) {
-        this.bookService = bookService;
+    public AuthorController(AuthorService authorService) {
+        this.authorService = authorService;
     }
 
     @GetMapping("/book/{id}/authorupdate")
     public String showAuthorList(@PathVariable String id, Model model){
-        model.addAttribute("author", bookService.getAuthorCommandByBookId(id));
+        model.addAttribute("author", authorService.getAuthorCommandByBookId(id));
         return "book/author/authorform";
     }
 
     @PostMapping("/author/{id}/save")
     public String saveAuthor(@PathVariable String id, @ModelAttribute AuthorCommand authorCommand, Model model){
-        BookCommand bookCommand = bookService.saveOrUpdateAuthor(id, authorCommand);
+        BookCommand bookCommand = authorService.saveOrUpdateAuthor(id, authorCommand);
         model.addAttribute("book", bookCommand);
         return "redirect:/book/show/" + bookCommand.getId();
     }

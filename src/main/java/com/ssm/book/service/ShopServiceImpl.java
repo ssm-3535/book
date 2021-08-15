@@ -13,17 +13,19 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 @Service
 public class ShopServiceImpl implements ShopService {
-    private ShopToShopCommand shopToShopCommand;
-    private BookRepository bookRepository;
-    private ShopCommandToShop shopCommandToShop;
-    private QuantityRepository quantityRepository;
+    private final ShopToShopCommand shopToShopCommand;
+    private final BookRepository bookRepository;
+    private final ShopCommandToShop shopCommandToShop;
+    private final QuantityRepository quantityRepository;
+    private final ShopRepository shopRepository;
 
-    public ShopServiceImpl(ShopToShopCommand shopToShopCommand,BookRepository bookRepository,
-                           ShopCommandToShop shopCommandToShop,QuantityRepository quantityRepository) {
+    public ShopServiceImpl(ShopToShopCommand shopToShopCommand, BookRepository bookRepository,
+                           ShopCommandToShop shopCommandToShop, QuantityRepository quantityRepository, ShopRepository shopRepository) {
         this.shopToShopCommand = shopToShopCommand;
         this.bookRepository = bookRepository;
         this.shopCommandToShop = shopCommandToShop;
         this.quantityRepository = quantityRepository;
+        this.shopRepository = shopRepository;
     }
 
     @Override
@@ -77,5 +79,21 @@ public class ShopServiceImpl implements ShopService {
                     .map(shop -> shopToShopCommand.convert(shop)).findFirst();
             return savedShop.get();
         }
+    }
+
+    @Override
+    public void deleteShop(String book_id, String id) {
+//        Book book = bookRepository.findById(Long.valueOf(book_id)).get();
+//        Optional<Shop> shopOptional = book.getShops().stream().filter(shop -> shop.getId().equals(id)).findFirst();
+//        if(shopOptional.isPresent()){
+//            System.out.println("win lar ");
+//            Shop shopToDelete = shopOptional.get();
+//            shopToDelete.setBook(null);
+//            book.getShops().remove(shopOptional.get());
+//            bookRepository.save(book);
+//        }else {
+//            System.out.println("no no ======");
+//        }
+        shopRepository.deleteById(Long.valueOf(id));
     }
 }
