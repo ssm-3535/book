@@ -23,27 +23,15 @@ public class BookServiceImpl implements BookService{
     private BookCommandToBook bookCommandToBook;
     private CategoryRepository categoryRepository;
     private CategoryToCategoryCommand categoryToCategoryCommand;
-    private ShopRepository shopRepository;
-    private AuthorToAuthorCommand authorToAuthorCommand;
-    private AuthorRepository authorRepository;
-    private PublisherToPublisherCommand publisherToPublisherCommand;
-    private PublisherRepository publisherRepository;
 
     public BookServiceImpl(BookRepository bookRepository, BookToBookCommand bookToBookCommand,
                            BookCommandToBook bookCommandToBook, CategoryRepository categoryRepository,
-                           CategoryToCategoryCommand categoryToCategoryCommand, ShopRepository shopRepository,
-                           AuthorToAuthorCommand authorToAuthorCommand,AuthorRepository authorRepository,
-                           PublisherToPublisherCommand publisherToPublisherCommand, PublisherRepository publisherRepository) {
+                           CategoryToCategoryCommand categoryToCategoryCommand) {
         this.bookRepository = bookRepository;
         this.bookToBookCommand = bookToBookCommand;
         this.bookCommandToBook = bookCommandToBook;
         this.categoryRepository = categoryRepository;
         this.categoryToCategoryCommand = categoryToCategoryCommand;
-        this.shopRepository = shopRepository;
-        this.authorToAuthorCommand = authorToAuthorCommand;
-        this.authorRepository = authorRepository;
-        this.publisherToPublisherCommand = publisherToPublisherCommand;
-        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -91,55 +79,4 @@ public class BookServiceImpl implements BookService{
         bookRepository.deleteById(Long.valueOf(id));
     }
 
-    @Override
-    public void deleteShop(String book_id, String id) {
-//        Book book = bookRepository.findById(Long.valueOf(book_id)).get();
-//        Optional<Shop> shopOptional = book.getShops().stream().filter(shop -> shop.getId().equals(id)).findFirst();
-//        if(shopOptional.isPresent()){
-//            System.out.println("win lar ");
-//            Shop shopToDelete = shopOptional.get();
-//            shopToDelete.setBook(null);
-//            book.getShops().remove(shopOptional.get());
-//            bookRepository.save(book);
-//        }else {
-//            System.out.println("no no ======");
-//        }
-        shopRepository.deleteById(Long.valueOf(id));
-    }
-
-    @Override
-    public BookCommand saveOrUpdateAuthor(String id, AuthorCommand authorCommand) {
-        Author author = authorRepository.findById(Long.valueOf(id)).get();
-        author.setName(authorCommand.getName());
-        author.setPhone(authorCommand.getPhone());
-        author.setAddress(authorCommand.getAddress());
-        Author savedAuthor = authorRepository.save(author);
-
-        Book book = bookRepository.findById(Long.valueOf(savedAuthor.getBook().getId())).get();
-        return bookToBookCommand.convert(book);
-    }
-
-    @Override
-    public AuthorCommand getAuthorCommandByBookId(String id) {
-        Book book = bookRepository.findById(Long.valueOf(id)).get();
-        Author author = book.getAuthor();
-        return authorToAuthorCommand.convert(author);
-    }
-
-    @Override
-    public PublisherCommand findPublisherCommandById(String book_id) {
-        Book book = bookRepository.findById(Long.valueOf(book_id)).get();
-        return publisherToPublisherCommand.convert(book.getPublisher());
-    }
-
-    @Override
-    public BookCommand updatePublisher(String id, PublisherCommand publisherCommand) {
-        Publisher publisher = publisherRepository.findById(Long.valueOf(id)).get();
-        publisher.setName(publisherCommand.getName());
-        publisher.setPhone(publisherCommand.getPhone());
-        publisher.setAddress(publisherCommand.getAddress());
-        Publisher savedPublisher = publisherRepository.save(publisher);
-        Book book = bookRepository.findById(Long.valueOf(savedPublisher.getBook().getId())).get();
-        return bookToBookCommand.convert(book);
-    }
 }
