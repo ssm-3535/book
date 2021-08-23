@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -40,21 +41,29 @@ class BookServiceImplTest {
 
     BookServiceImpl bookService;
 
-    public BookServiceImplTest(){
-        this.bookToBookCommand = new BookToBookCommand(new PublisherToPublisherCommand(),new AuthorToAuthorCommand(), new CategoryToCategoryCommand(), new ShopToShopCommand(new QuantityToQuantityCommand()));
-        this.bookCommandToBook = new BookCommandToBook(new ShopCommandToShop(new QuantityCommandToQuantity()), publisherRepository, authorRepository, categoryRepository);
+    public BookServiceImplTest() {
+        this.bookToBookCommand = new BookToBookCommand(
+                new PublisherToPublisherCommand(),
+                new AuthorToAuthorCommand(),
+                new CategoryToCategoryCommand(),
+                new ShopToShopCommand(new QuantityToQuantityCommand()));
+        this.bookCommandToBook = new BookCommandToBook(
+                new ShopCommandToShop(new QuantityCommandToQuantity()),
+                new PublisherCommandToPublisher(),
+                new AuthorCommandToAuthor(),
+                new CategoryCommandToCategory());
         this.categoryToCategoryCommand = new CategoryToCategoryCommand();
     }
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         MockitoAnnotations.initMocks(this);
 
         bookService = new BookServiceImpl(bookRepository, bookToBookCommand, bookCommandToBook, categoryRepository, categoryToCategoryCommand);
     }
 
     @Test
-    void getAllBooks() {
+    void testGetAllBooks() {
         //give
         Book book1 = new Book();
         Book book2 = new Book();
@@ -74,7 +83,7 @@ class BookServiceImplTest {
     }
 
     @Test
-    void getBookById() {
+    void testGetBookById() {
         //given
         Book book = new Book();
         book.setId(1L);
@@ -88,7 +97,7 @@ class BookServiceImplTest {
     }
 
     @Test
-    void getBookCommandById() {
+    void testGetBookCommandById() {
         //given
         Book book = new Book();
         book.setTitle("ssm");
@@ -102,7 +111,7 @@ class BookServiceImplTest {
     }
 
     @Test
-    void saveBookCommand() {
+    void testSaveBookCommand() {
         //given
         Book savedBook = new Book();
         savedBook.setId(1L);
@@ -118,12 +127,19 @@ class BookServiceImplTest {
 
         PublisherCommand publisherCommand = new PublisherCommand();
         publisherCommand.setId(1L);
+        publisherCommand.setName("Test");
+        publisherCommand.setPhone("Test");
+        publisherCommand.setAddress("Test");
 
         AuthorCommand authorCommand = new AuthorCommand();
         authorCommand.setId(1L);
+        authorCommand.setName("Test");
+        authorCommand.setAddress("Test");
+        authorCommand.setPhone("Test");
 
         CategoryCommand categoryCommand = new CategoryCommand();
         categoryCommand.setId(1L);
+        categoryCommand.setTitle("Test");
 
         BookCommand bookCommand = new BookCommand();
         bookCommand.setId(1L);
@@ -132,9 +148,6 @@ class BookServiceImplTest {
         bookCommand.setCategory(categoryCommand);
 
         //when
-        when(publisherRepository.findById(anyLong())).thenReturn(Optional.of(publisher));
-        when(authorRepository.findById(anyLong())).thenReturn(Optional.of(author));
-        when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(category));
         when(bookRepository.save(any())).thenReturn(savedBook);
 
         //then
@@ -144,7 +157,7 @@ class BookServiceImplTest {
     }
 
     @Test
-    void getCategoryList() {
+    void testGetCategoryList() {
         //given
         Set<Category> categorySet = new HashSet<>();
         Category category1 = new Category();
@@ -167,7 +180,7 @@ class BookServiceImplTest {
     }
 
     @Test
-    void deleteBookCommandById() {
+    void testDeleteBookCommandById() {
         bookService.deleteBookCommandById(String.valueOf(1));
         verify(bookRepository, times(1)).deleteById(anyLong());
     }

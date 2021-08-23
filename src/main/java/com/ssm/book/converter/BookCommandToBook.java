@@ -2,26 +2,24 @@ package com.ssm.book.converter;
 
 import com.ssm.book.command.BookCommand;
 import com.ssm.book.domain.Book;
-import com.ssm.book.repositories.AuthorRepository;
-import com.ssm.book.repositories.CategoryRepository;
-import com.ssm.book.repositories.PublisherRepository;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BookCommandToBook implements Converter<BookCommand, Book> {
     private ShopCommandToShop shopCommandToShop;
-    private PublisherRepository publisherRepository;
-    private AuthorRepository authorRepository;
-    private CategoryRepository categoryRepository;
+    private PublisherCommandToPublisher pcToPublisher;
+    private AuthorCommandToAuthor acToAuthor;
+    private CategoryCommandToCategory ccToCategory;
 
     public BookCommandToBook(ShopCommandToShop shopCommandToShop,
-                             PublisherRepository publisherRepository, AuthorRepository authorRepository,
-                             CategoryRepository categoryRepository) {
+                             PublisherCommandToPublisher pcToPublisher,
+                             AuthorCommandToAuthor acToAuthor,
+                             CategoryCommandToCategory ccToCategory) {
         this.shopCommandToShop = shopCommandToShop;
-        this.publisherRepository = publisherRepository;
-        this.authorRepository = authorRepository;
-        this.categoryRepository = categoryRepository;
+        this.pcToPublisher = pcToPublisher;
+        this.acToAuthor = acToAuthor;
+        this.ccToCategory = ccToCategory;
     }
 
     @Override
@@ -33,9 +31,9 @@ public class BookCommandToBook implements Converter<BookCommand, Book> {
         book.setTitle(source.getTitle());
         book.setYear(source.getYear());
         book.setPrice(source.getPrice());
-        book.setPublisher(publisherRepository.findById(source.getPublisher().getId()).get());
-        book.setAuthor(authorRepository.findById(source.getAuthor().getId()).get());
-        book.setCategory(categoryRepository.findById(source.getCategory().getId()).get());
+        book.setPublisher(pcToPublisher.convert(source.getPublisher()));
+        book.setAuthor(acToAuthor.convert(source.getAuthor()));
+        book.setCategory(ccToCategory.convert(source.getCategory()));
         if(source.getShops() != null && source.getShops().size() > 0){
             source.getShops().forEach(shop -> book.getShops().add(shopCommandToShop.convert(shop)));
         }
