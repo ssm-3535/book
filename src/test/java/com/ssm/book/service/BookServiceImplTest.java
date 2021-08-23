@@ -66,8 +66,11 @@ class BookServiceImplTest {
     void testGetAllBooks() {
         //give
         Book book1 = new Book();
+        book1.setId(1L);
         Book book2 = new Book();
+        book2.setId(2L);
         Book book3 = new Book();
+        book3.setId(3L);
         Set<Book> bookSet = new HashSet<>();
         bookSet.add(book1);
         bookSet.add(book2);
