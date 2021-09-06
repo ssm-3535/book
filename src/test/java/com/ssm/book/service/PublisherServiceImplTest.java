@@ -1,5 +1,6 @@
 package com.ssm.book.service;
 
+import com.ssm.book.api.v1.mapper.PublisherMapper;
 import com.ssm.book.command.BookCommand;
 import com.ssm.book.command.PublisherCommand;
 import com.ssm.book.converter.*;
@@ -41,7 +42,7 @@ class PublisherServiceImplTest {
     void setUp(){
         MockitoAnnotations.initMocks(this);
 
-        publisherService = new PublisherServiceImpl(publisherRepository, publisherToPublisherCommand, bookRepository, bookToBookCommand);
+        publisherService = new PublisherServiceImpl(publisherRepository, publisherToPublisherCommand, bookRepository, bookToBookCommand, PublisherMapper.INSTANCE);
     }
 
     @Test

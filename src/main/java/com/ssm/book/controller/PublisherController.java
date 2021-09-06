@@ -1,9 +1,7 @@
 package com.ssm.book.controller;
 
-import com.ssm.book.command.AuthorCommand;
 import com.ssm.book.command.BookCommand;
 import com.ssm.book.command.PublisherCommand;
-import com.ssm.book.service.BookService;
 import com.ssm.book.service.PublisherService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

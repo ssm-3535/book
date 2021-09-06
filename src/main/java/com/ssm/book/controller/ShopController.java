@@ -2,7 +2,6 @@ package com.ssm.book.controller;
 
 import com.ssm.book.command.QuantityCommand;
 import com.ssm.book.command.ShopCommand;
-import com.ssm.book.domain.Shop;
 import com.ssm.book.service.BookService;
 import com.ssm.book.service.QuantityService;
 import com.ssm.book.service.ShopService;

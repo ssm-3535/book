@@ -33,7 +33,6 @@ public class BookController {
 
     @GetMapping("/book/show/{id}")
     public String showBook(@PathVariable String id, Model model){
-        System.out.println("id ====" + id);
         model.addAttribute("book",bookService.getBookById(id));
         return "book/show";
     }

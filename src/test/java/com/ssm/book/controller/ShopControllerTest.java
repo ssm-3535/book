@@ -3,7 +3,6 @@ package com.ssm.book.controller;
 import com.ssm.book.command.BookCommand;
 import com.ssm.book.command.QuantityCommand;
 import com.ssm.book.command.ShopCommand;
-import com.ssm.book.domain.Quantity;
 import com.ssm.book.service.BookService;
 import com.ssm.book.service.QuantityService;
 import com.ssm.book.service.ShopService;
@@ -13,12 +12,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

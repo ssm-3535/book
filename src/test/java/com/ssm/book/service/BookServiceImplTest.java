@@ -1,5 +1,6 @@
 package com.ssm.book.service;
 
+import com.ssm.book.api.v1.mapper.*;
 import com.ssm.book.command.AuthorCommand;
 import com.ssm.book.command.BookCommand;
 import com.ssm.book.command.CategoryCommand;
@@ -50,7 +51,7 @@ class BookServiceImplTest {
     void setUp(){
         MockitoAnnotations.initMocks(this);
 
-        bookService = new BookServiceImpl(bookRepository, bookToBookCommand, bookCommandToBook, categoryRepository, categoryToCategoryCommand);
+        bookService = new BookServiceImpl(bookRepository, bookToBookCommand, bookCommandToBook, categoryRepository, categoryToCategoryCommand, BookMapper.INSTANCE, CategoryMapper.INSTANCE, AuthorMapper.INSTANCE, PublisherMapper.INSTANCE, ShopMapper.INSTANCE);
     }
 
     @Test

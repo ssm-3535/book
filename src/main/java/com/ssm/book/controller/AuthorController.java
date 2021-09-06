@@ -3,7 +3,6 @@ package com.ssm.book.controller;
 import com.ssm.book.command.AuthorCommand;
 import com.ssm.book.command.BookCommand;
 import com.ssm.book.service.AuthorService;
-import com.ssm.book.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,4 +30,6 @@ public class AuthorController {
         model.addAttribute("book", bookCommand);
         return "redirect:/book/show/" + bookCommand.getId();
     }
+
+
 }

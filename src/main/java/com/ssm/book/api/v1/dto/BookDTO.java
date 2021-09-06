@@ -1,4 +1,4 @@
-package com.ssm.book.command;
+package com.ssm.book.api.v1.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BookCommand {
+public class BookDTO {
     private Long id;
     @NotBlank
     @Size(min = 3, max = 255)
@@ -23,8 +23,8 @@ public class BookCommand {
     private String year;
 
     private String price;
-    private PublisherCommand publisher;
-    private AuthorCommand author;
-    private Set<ShopCommand> shops = new HashSet<>();
-    private CategoryCommand category;
+    private PublisherDTO publisher;
+    private AuthorDTO author;
+    private Set<ShopDTO> shops = new HashSet<>();
+    private CategoryDTO category;
 }

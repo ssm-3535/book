@@ -1,5 +1,6 @@
 package com.ssm.book.service;
 
+import com.ssm.book.api.v1.mapper.AuthorMapper;
 import com.ssm.book.command.AuthorCommand;
 import com.ssm.book.converter.*;
 import com.ssm.book.domain.Author;
@@ -39,7 +40,7 @@ class AuthorServiceImplTest {
     void setUp(){
         MockitoAnnotations.initMocks(this);
 
-        authorService = new AuthorServiceImpl(authorRepository, authorToAuthorCommand, bookRepository, bookToBookCommand);
+        authorService = new AuthorServiceImpl(authorRepository, authorToAuthorCommand, bookRepository, bookToBookCommand, AuthorMapper.INSTANCE);
     }
 
     @Test

@@ -1,5 +1,7 @@
 package com.ssm.book.service;
 
+import com.ssm.book.api.v1.mapper.QuantityMapper;
+import com.ssm.book.api.v1.mapper.ShopMapper;
 import com.ssm.book.command.QuantityCommand;
 import com.ssm.book.command.ShopCommand;
 import com.ssm.book.converter.QuantityCommandToQuantity;
@@ -50,7 +52,7 @@ class ShopServiceImplTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        shopService = new ShopServiceImpl(shopToShopCommand, bookRepository, shopCommandToShop, quantityRepository, shopRepository);
+        shopService = new ShopServiceImpl(shopToShopCommand, bookRepository, shopCommandToShop, quantityRepository, shopRepository, ShopMapper.INSTANCE, QuantityMapper.INSTANCE);
     }
 
     @Test

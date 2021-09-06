@@ -1,7 +1,6 @@
 package com.ssm.book.converter;
 
 import com.ssm.book.command.AuthorCommand;
-import com.ssm.book.command.PublisherCommand;
 import com.ssm.book.domain.Author;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
